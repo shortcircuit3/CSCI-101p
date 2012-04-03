@@ -20,7 +20,10 @@ int main()
     f = d+e;
     
     c = pow(f, 1.0/2.0);
-    cout << "C is: " << c << endl;
+    
+    cout << "Side A was: " << a << endl;
+    cout << "Side B was: " << b << endl;
+    cout << "The computer calculated side C as: " << c << endl;
     
     //return 0;
     cin.get();
@@ -31,9 +34,13 @@ int main()
 
 /*
  
+ Alex-Miless-MacBook-Pro:csci milesa2$ g++ triangle.cpp -o triangle
+ Alex-Miless-MacBook-Pro:csci milesa2$ ./triangle
  Enter a: 5
  Enter b: 12
- C is: 13
+ Side A was: 5
+ Side B was: 12
+ The computer calculated side C as: 13
 
  */
 
