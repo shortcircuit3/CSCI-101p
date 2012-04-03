@@ -26,3 +26,14 @@ int main()
     cin.get();
 }
 
+
+// CONSOLE OUTPUT
+
+/*
+ 
+ Enter a: 5
+ Enter b: 12
+ C is: 13
+
+ */
+
