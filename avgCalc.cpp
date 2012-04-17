@@ -25,9 +25,9 @@ int main()
 	
 	while(grades.size() < 10) { //the check condition
         
-        cin >> number;
+        	cin >> number;
         
-        grades.push_back(number);
+        	grades.push_back(number);
 
 	}
     
