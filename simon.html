@@ -1,0 +1,68 @@
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script>
+		// Simon says
+
+
+		
+		$(function(){
+			
+			var max = 10;
+			var steps = 0;
+			var sequence = [];  // computer generated
+			var user = []; // user generated
+
+			var rand = Math.floor(Math.random()*4+1);
+			sequence.push(rand);
+
+			for (var x in sequence){
+				console.log(sequence[x]);
+			}
+
+			function echoUser(){
+				for(var x in user){
+					console.log(user[x]);
+				}
+				console.log("________________________")
+			}
+			
+		
+			$(".one").click(function() {
+				user.push('1');
+				echoUser();
+			});
+			$(".two").click(function() {
+				user.push('2');
+				echoUser();
+			});
+			$(".three").click(function() {
+				user.push('3');
+				echoUser();
+			});
+			$(".four").click(function() {
+				user.push('4');
+				echoUser();
+			});
+			
+		});
+		
+		
+	
+		
+		
+
+	</script>
+	
+</head>
+
+
+
+<body>
+	<h1>Simon Says</h1>
+	
+	<a class="one" href="#">1</a><br/><br/>
+	<a class="two" href="#">2</a><br/><br/>
+	<a class="three" href="#">3</a><br/><br/>
+	<a class="four" href="#">4</a><br/><br/>
+	
+</body>
