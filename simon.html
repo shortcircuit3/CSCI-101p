@@ -7,42 +7,157 @@
 		
 		$(function(){
 			
-			var max = 10;
-			var steps = 0;
-			var sequence = [];  // computer generated
-			var user = []; // user generated
+			
+			var maxTurn = 10;	// Max number of turns
+			var curTurn = 1;	// Current turn count
+			var computerSeq = [];	// computer generated
+			var userSeq = [];	// user generated array
+			
+			
+			// testing variables
+			var arrayLength = false;
+			var sameKey = false;
+			var winRound = false;
+			
+			
+				/*
 
-			var rand = Math.floor(Math.random()*4+1);
-			sequence.push(rand);
-
-			for (var x in sequence){
-				console.log(sequence[x]);
+				// Loop through all numbers in computerSeq and print to console
+				for (var x in computerSeq){
+					console.log(computerSeq[x]);
+				}*/
+			
+			
+			
+			
+			function compTurn() {
+				
+				
+				
+				userSeq.length = 0;
+				
+				var rand = Math.floor(Math.random()*4+1); // generate random number 1-4
+				computerSeq.push(rand); // add random number to computerSeq array
+				
+				console.log("=====================");
+				console.log("computer turn: " + computerSeq);
+				console.log("turn " + curTurn);
 			}
 
-			function echoUser(){
-				for(var x in user){
-					console.log(user[x]);
+			
+			
+			
+			
+			function compare(x, y) {
+				/*if (x === y) {//For reference types:returns true if x and y points to same object
+					return true;
+				}*/
+				if (x.length != y.length) {
+					arrayLength = false;
 				}
-				console.log("________________________")
+				else {
+					arrayLength = true;
+				}
+				
+				for ( var key in x) {
+					if (x[key] !== y[key]) {//!== So that the the values are not converted while comparison
+						sameKey = false;
+					}
+					else {
+						sameKey = true;
+					}
+				}
+				
+				if (arrayLength == true && sameKey == false)
 			}
 			
-		
+			
+			
+			
+			
+			
 			$(".one").click(function() {
-				user.push('1');
-				echoUser();
+				
+				userSeq.push(1);
+				winOrLose();
+				
 			});
 			$(".two").click(function() {
-				user.push('2');
-				echoUser();
+				userSeq.push(2);
+				winOrLose();
 			});
 			$(".three").click(function() {
-				user.push('3');
-				echoUser();
+				userSeq.push(3);
+				winOrLose();
 			});
 			$(".four").click(function() {
-				user.push('4');
-				echoUser();
+				userSeq.push(4);
+				winOrLose();
 			});
+			
+			
+			
+			function winOrLose(){
+				
+				// if the the arrays length is not equal  use got value wrong
+				if ( compare(userSeq, computerSeq) == 1 && compare(userSeq, computerSeq) == 2 ){
+					console.log("wrong - start over");
+					curTurn = 1;
+					computerSeq.length = 0;
+					compTurn();
+				}
+				// if the array lengths dont match up
+				else if ( compare(userSeq, computerSeq) == 1 ) {
+					console.log("keep going");
+				}
+				// if the user got it wrong
+				else if ( compare(userSeq, computerSeq) == 2 ){
+					console.log("wrong - start over");
+					curTurn = 1;
+					computerSeq.length = 0;
+					compTurn();
+				}
+				// if the user got it right
+				else if ( compare(userSeq, computerSeq) == 3 ) {
+					console.log("you got it right!");
+					curTurn ++;
+					compTurn();
+				}
+			}
+			
+			
+			
+			compTurn();
+			
+			
+			
+		/*	
+			
+			// Number of steps >= max you win
+			if (curTurn >= maxTurn){
+				console.log("You Win!"); // You Win
+			}
+			else {
+				addToComputerSeq(); // add number to computerSeq aray
+				console.log('Your turn');
+				
+				
+			}
+			
+			*/
+			
+			
+			//curTurn ++; // increment the turn by one
+			
+			
+
+
+
+
+			
+
+		
+			
 			
 		});
 		
