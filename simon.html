@@ -15,7 +15,7 @@
 			
 			
 			// testing variables
-			var arrayLength = false;
+			var sameArrayLength = false;
 			var sameKey = false;
 			var winRound = false;
 			
@@ -53,22 +53,16 @@
 					return true;
 				}*/
 				if (x.length != y.length) {
-					arrayLength = false;
+					return false;
 				}
-				else {
-					arrayLength = true;
-				}
+				
 				
 				for ( var key in x) {
 					if (x[key] !== y[key]) {//!== So that the the values are not converted while comparison
-						sameKey = false;
-					}
-					else {
-						sameKey = true;
+						return false;
 					}
 				}
-				
-				if (arrayLength == true && sameKey == false)
+				return true;
 			}
 			
 			
@@ -77,7 +71,6 @@
 			
 			
 			$(".one").click(function() {
-				
 				userSeq.push(1);
 				winOrLose();
 				
@@ -100,25 +93,16 @@
 			function winOrLose(){
 				
 				// if the the arrays length is not equal  use got value wrong
-				if ( compare(userSeq, computerSeq) == 1 && compare(userSeq, computerSeq) == 2 ){
+				if ( compare(userSeq, computerSeq) == false){
 					console.log("wrong - start over");
 					curTurn = 1;
 					computerSeq.length = 0;
 					compTurn();
+					
 				}
-				// if the array lengths dont match up
-				else if ( compare(userSeq, computerSeq) == 1 ) {
-					console.log("keep going");
-				}
-				// if the user got it wrong
-				else if ( compare(userSeq, computerSeq) == 2 ){
-					console.log("wrong - start over");
-					curTurn = 1;
-					computerSeq.length = 0;
-					compTurn();
-				}
+
 				// if the user got it right
-				else if ( compare(userSeq, computerSeq) == 3 ) {
+				else if ( compare(userSeq, computerSeq) == true ) {
 					console.log("you got it right!");
 					curTurn ++;
 					compTurn();
