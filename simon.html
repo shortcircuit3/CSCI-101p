@@ -8,6 +8,10 @@
 		$(function(){
 			
 			
+			/* ========================================================
+				Initialize global variables
+			===========================================================*/
+			
 			var maxTurn = 10;	// Max number of turns
 			var curTurn = 1;	// Current turn count
 			var computerSeq = [];	// computer generated
@@ -20,43 +24,32 @@
 			var winRound = false;
 			
 			
-				/*
-
-				// Loop through all numbers in computerSeq and print to console
-				for (var x in computerSeq){
-					console.log(computerSeq[x]);
-				}*/
 			
+			/* ========================================================
+				resetGame the game
+			===========================================================*/
 			
-			
-			
-			function compTurn() {
-				
-				
-				
-				userSeq.length = 0;
-				
-				var rand = Math.floor(Math.random()*4+1); // generate random number 1-4
-				computerSeq.push(rand); // add random number to computerSeq array
-				
-				console.log("=====================");
-				console.log("computer turn: " + computerSeq);
-				console.log("turn " + curTurn);
+			function resetGame(){
+				curTurn = 1;
+				computerSeq.length = 0;
 			}
-
 			
 			
 			
+			/* ========================================================
+				Comparison functions
+			===========================================================*/
 			
-			function compare(x, y) {
-				/*if (x === y) {//For reference types:returns true if x and y points to same object
-					return true;
-				}*/
+			// Compare the length of each array
+			function compareLength(x,y){
 				if (x.length != y.length) {
 					return false;
 				}
-				
-				
+				return true;
+			}
+			
+			// Compare the keys in each array
+			function compareKeys(x,y){
 				for ( var key in x) {
 					if (x[key] !== y[key]) {//!== So that the the values are not converted while comparison
 						return false;
@@ -67,9 +60,69 @@
 			
 			
 			
+			/* ========================================================
+				Computers turn
+			===========================================================*/
+			
+			function compTurn() {
+				
+				// reset the users sequence so they have to input all values for each turn
+				userSeq.length = 0; 
+				
+				var rand = Math.floor(Math.random()*4+1); // generate random number 1-4
+				computerSeq.push(rand); // add random number to computerSeq array
+				
+				console.log("=====================");
+				console.log("computer turn: " + computerSeq);
+				console.log("turn " + curTurn);
+			}
 			
 			
 			
+			/* ========================================================
+				Users turn
+			===========================================================*/
+			
+			function winOrLose(){
+				
+				// If the user's sequence is not the same length & the user has gotten all values correct
+				// Continue to listen for click events
+				if ( compareLength(userSeq, computerSeq) == false && compareKeys(userSeq, computerSeq) == true ){
+					console.log("keep going");
+				}
+				
+				// If the user's sequence is not the same length and the user's values are incorrect
+				// Start the game over
+				else if ( compareLength(userSeq, computerSeq) == false && compareKeys(userSeq, computerSeq) == false ){
+					console.log("you lose - start over");
+					resetGame();
+				}
+				
+				// If the user's sequence is the same length but the user got the last value wrong
+				// Start the game over
+				else if ( compareLength(userSeq, computerSeq) == true && compareKeys(userSeq, computerSeq) == false ){
+					console.log("you lose - start over");
+					resetGame();
+				}
+				
+				// If the user's sequence is the same length and the values match up
+				// The user wins - Begin next turn
+				else if (compareLength(userSeq, computerSeq) == true && compareKeys(userSeq, computerSeq) == true){
+					console.log("you got it right!");
+					curTurn ++; // increment the turn by one
+					compTurn(); // begin next turn
+					
+				}
+			}
+			
+			
+			
+			/* ========================================================
+				Event Listeners
+			===========================================================*/
+			
+			
+			// Listeners for the users sequence
 			$(".one").click(function() {
 				userSeq.push(1);
 				winOrLose();
@@ -89,67 +142,15 @@
 			});
 			
 			
-			
-			function winOrLose(){
-				
-				// if the the arrays length is not equal  use got value wrong
-				if ( compare(userSeq, computerSeq) == false){
-					console.log("wrong - start over");
-					curTurn = 1;
-					computerSeq.length = 0;
-					compTurn();
-					
-				}
-
-				// if the user got it right
-				else if ( compare(userSeq, computerSeq) == true ) {
-					console.log("you got it right!");
-					curTurn ++;
-					compTurn();
-				}
-			}
+			// Restart or start the same
+			$(".start").click(function() {
+				resetGame();
+				compTurn();
+			});
 			
 			
-			
-			compTurn();
-			
-			
-			
-		/*	
-			
-			// Number of steps >= max you win
-			if (curTurn >= maxTurn){
-				console.log("You Win!"); // You Win
-			}
-			else {
-				addToComputerSeq(); // add number to computerSeq aray
-				console.log('Your turn');
-				
-				
-			}
-			
-			*/
-			
-			
-			//curTurn ++; // increment the turn by one
-			
-			
-
-
-
-
-			
-
+		}); // End .ready()
 		
-			
-			
-		});
-		
-		
-	
-		
-		
-
 	</script>
 	
 </head>
@@ -158,6 +159,8 @@
 
 <body>
 	<h1>Simon Says</h1>
+	
+	<a class="start" href="#">start</a><br/><br/>
 	
 	<a class="one" href="#">1</a><br/><br/>
 	<a class="two" href="#">2</a><br/><br/>
